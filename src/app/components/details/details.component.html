@@ -1,0 +1,43 @@
+@if (specificItem!== null) {
+<section class="m-5">
+  <h1 class="text-center text-main my-2">Details specificItems</h1>
+  <div class="row align-items-center">
+    <div class="col-md-3 rounded-5 overflow-hidden">
+      <owl-carousel-o [options]="customOptionsCat">
+        @for (item of specificItem.images; track $index) {
+        <ng-template carouselSlide>
+          <div>
+            <img class="w-100" [src]="item" [alt]="specificItem.title" />
+          </div>
+        </ng-template>
+        }
+      </owl-carousel-o>
+    </div>
+    <div class="col-md-9">
+      <div>
+        <h2>{{ specificItem.title }}</h2>
+        <p class="text-muted">{{ specificItem.description }}</p>
+        <h3 class="h6">{{ specificItem.category.name }}</h3>
+        <div class="d-flex justify-content-between align-items-center">
+          <span>{{ specificItem.price }}</span>
+          <div>
+            @for (item of [1,2,3,4,5].slice(0,specificItem.ratingsAverage);
+            track $index) {
+            <span>
+              <i class="fas fa-star rating-color"></i>
+            </span>
+            } @if (specificItem.ratingsAverage%1 !==0) {
+            <span>
+              <i class="fa-regular fa-star-half-stroke rating-color"></i>
+            </span>
+            }
+
+            <span class="text-muted">{{ specificItem.ratingsAverage }}</span>
+          </div>
+        </div>
+        <button class="btn-main w-100 addButton">+ add to Card</button>
+      </div>
+    </div>
+  </div>
+</section>
+}

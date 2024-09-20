@@ -1,0 +1,145 @@
+<!-- nmain slider -->
+<section class="m-5">
+  <div class="row g-0">
+    <div class="col-md-10">
+      <div>
+        <owl-carousel-o [options]="customOptionsMain">
+          <ng-template carouselSlide
+            ><img
+              src="./assets/images/slider-image-3.jpeg"
+              height="400px"
+              class="w-100"
+              alt="choloclate"
+          /></ng-template>
+          <ng-template carouselSlide
+            ><img
+              src="./assets/images/slider-image-1.jpeg"
+              height="400px"
+              class="w-100"
+              alt="choloclate"
+          /></ng-template>
+          <ng-template carouselSlide
+            ><img
+              src="./assets/images/slider-image-2.jpeg"
+              height="400px"
+              class="w-100"
+              alt="choloclate"
+          /></ng-template>
+          <ng-template carouselSlide
+            ><img
+              src="../../../assets/images/slider-2.jpeg"
+              height="400px"
+              class="w-100"
+              alt="choloclate"
+          /></ng-template>
+          <ng-template carouselSlide
+            ><img
+              src="../../../assets/images/blog-img-2.jpeg"
+              height="400px"
+              class="w-100"
+              alt="choloclate"
+          /></ng-template>
+          <ng-template carouselSlide
+            ><img
+              src="../../../assets/images/grocery-banner-2.jpeg"
+              height="400px"
+              class="w-100"
+              alt="choloclate"
+          /></ng-template>
+          <ng-template carouselSlide
+            ><img
+              src="../../../assets/images/grocery-banner.png"
+              height="400px"
+              class="w-100"
+              alt="choloclate"
+          /></ng-template>
+        </owl-carousel-o>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div>
+        <img
+          src="./assets/images/grocery-banner.png"
+          height="200px"
+          class="w-100"
+          alt=""
+        />
+        <img
+          src="./assets/images/grocery-banner-2.jpeg"
+          height="200px"
+          class="w-100"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- categories section  -->
+<section class="m-5">
+  <h2 class="">Popular categories</h2>
+  <owl-carousel-o [options]="customOptionsCat">
+    @for (item of categoriesList; track $index) {
+    <ng-template carouselSlide [id]="item._id">
+      <div class="text-center">
+        <img
+          height="250px"
+          [src]="item.image"
+          [alt]="item.name"
+          [title]="item.slug"
+        />
+        <h3 class="h6 text-main my-2">{{ item.name }}</h3>
+      </div>
+    </ng-template>
+    }
+  </owl-carousel-o>
+</section>
+
+<!--
+products -->
+<section>
+  <div class="container-fluid p-5">
+    <h2>Popular Products</h2>
+    <div class="row g-3">
+      <input
+        class="w-100 mx-auto my-3 form-control"
+        [(ngModel)]="text"
+        type="search"
+        placeholder="Search by brand "
+      />
+      @for (product of productList |searchPipe:text; track product.id) {
+      <div class="col-md-2">
+        <div class="product p-2">
+          <div [routerLink]="['/details', product.id]">
+            <img
+              class="w-100"
+              [src]="product.imageCover"
+              [alt]="product.title"
+            />
+            <h3 class="small text-main">{{ product.brand.name }}</h3>
+            <h4 class="h6">{{ product.category.name }}</h4>
+            <div class="d-flex justify-content-between align-items-center">
+              <span>{{ product.price | currency : "EGP" }}</span>
+              <div>
+                @for (item of [1,2,3,4,5].slice(0,product.ratingsAverage); track
+                $index) {
+                <span>
+                  <i class="fas fa-star rating-color"></i>
+                </span>
+                } @if (product.ratingsAverage%1 !==0) {
+                <span>
+                  <i class="fa-regular fa-star-half-stroke rating-color"></i>
+                </span>
+                }
+
+                <span class="text-muted">{{ product.ratingsAverage }}</span>
+              </div>
+            </div>
+          </div>
+          <button (click)="getAllInCart(product.id)"   class="btn-main w-100 addButton">Add</button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>

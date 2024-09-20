@@ -1,0 +1,43 @@
+<section class="bg-main-light w-75 rounded-4 shadow p-4 my-5 mx-auto">
+  <h1 class="h2 text-center">Your Cart</h1>
+  <div class="d-flex justify-content-between align-content-center">
+    <button (click)="deleteCart()" class="btn btn-danger">Clean Cart</button>
+    <p class="text-main">
+      Total Cart price {{ cart.totalCartPrice | currency : " EGP " }}
+    </p>
+  </div>
+  @for (item of cart.products; track item.product.id) {
+  <div class="row border-2 border-black rounded-2 shadow p-4 m-2">
+    <div class="col-md-1">
+      <img class="w-100 rounded-2" [src]="item.product.imageCover" alt="" />
+    </div>
+
+    <div class="col-md-11 d-flex justify-content-between">
+      <div>
+        <h2 class="h6">{{ item.product.title }}</h2>
+        <p class="text-main m-0">Price : {{ item.price }}</p>
+        <button
+          (click)="deletItem(item.product.id)"
+          class="text-danger btn p-0 cr"
+        >
+          <i class="fa-solid fa-trash cr"></i>
+        </button>
+      </div>
+      <div class="d-flex align-items-center justify-content-between">
+        <span
+          ><i class="fa-solid fa-circle-plus text-main p-2 fa-xl cr"></i
+        ></span>
+        <span>{{ item.count }}</span>
+        <span
+          ><i
+            class="fa-solid fa-circle-minus rounded-5 text-main p-2 fa-xl cr"
+          ></i
+        ></span>
+      </div>
+    </div>
+  </div>
+  }
+  <button [routerLink]="['/orders', cart._id]" class="btn-main mt-2">
+    Order
+  </button>
+</section>
