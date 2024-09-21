@@ -9,19 +9,10 @@ import { Observable } from 'rxjs';
 export class CartService {
   constructor(private _Httpclient: HttpClient) {}
 
-
-  
-  
-
-
-
   addProductToCart(data: string): Observable<any> {
-    return this._Httpclient.post(
-      `${enviroment.baseUrl}/api/v1/cart`,
-      {
-        productId: data,
-      }
-    );
+    return this._Httpclient.post(`${enviroment.baseUrl}/api/v1/cart`, {
+      productId: data,
+    });
   }
 
   getAllItemsOnTheCart(): Observable<any> {
@@ -29,8 +20,7 @@ export class CartService {
   }
 
   deleteSpecificItem(data: string): Observable<any> {
-    return this._Httpclient.delete(
-      `${enviroment.baseUrl}/api/v1/cart/${data}`);
+    return this._Httpclient.delete(`${enviroment.baseUrl}/api/v1/cart/${data}`);
   }
 
   clearUsercart(): Observable<any> {
@@ -45,7 +35,7 @@ export class CartService {
       }
     );
   }
-    updateCartProductQuantity(productId: string ,count:number): Observable<any> {
+  updateCartProductQuantity(productId: string ,count:number): Observable<any> {
     return this._Httpclient.put(`${enviroment.baseUrl}/api/v1/cart/${productId}`, {
       'count': count,
     });
