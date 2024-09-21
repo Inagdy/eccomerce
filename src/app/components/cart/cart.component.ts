@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [RouterLink ,CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
@@ -33,15 +33,6 @@ export class CartComponent implements OnInit {
         this.cart = res.data;
       },
     });
-      addItemtocart(productId: string, numberOfitems: number) {
-    this._CartService
-      .updateCartProductQuantity(productId, numberOfitems)
-      .subscribe({
-        next: (res) => {
-          this.cart = res.data;
-        },
-      });
-  }
   }
 
   deleteCart(): void {
@@ -52,5 +43,14 @@ export class CartComponent implements OnInit {
         }
       },
     });
+  }
+  addItemtocart(productId: string, numberOfitems: number) {
+    this._CartService
+      .updateCartProductQuantity(productId, numberOfitems)
+      .subscribe({
+        next: (res) => {
+          this.cart = res.data;
+        },
+      });
   }
 }
