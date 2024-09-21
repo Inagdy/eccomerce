@@ -45,4 +45,9 @@ export class CartService {
       }
     );
   }
+    updateCartProductQuantity(productId: string ,count:number): Observable<any> {
+    return this._Httpclient.put(`${enviroment.baseUrl}/api/v1/cart/${productId}`, {
+      'count': count,
+    });
+  }
 }
