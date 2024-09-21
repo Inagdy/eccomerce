@@ -33,6 +33,15 @@ export class CartComponent implements OnInit {
         this.cart = res.data;
       },
     });
+      addItemtocart(productId: string, numberOfitems: number) {
+    this._CartService
+      .updateCartProductQuantity(productId, numberOfitems)
+      .subscribe({
+        next: (res) => {
+          this.cart = res.data;
+        },
+      });
+  }
   }
 
   deleteCart(): void {
