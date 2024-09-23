@@ -17,6 +17,7 @@ export class OrdersComponent implements OnInit {
   private readonly _toastr =inject(ToastrService)
 
   cartId: string | null = ' ';
+  cardOwner: string ='';
 
   orders: FormGroup = new FormGroup({
     details: new FormControl(null),

@@ -16,6 +16,7 @@ export class CartComponent implements OnInit {
 
   cart: Cart = {} as Cart;
 
+
   ngOnInit(): void {
     this._CartService.getAllItemsOnTheCart().subscribe({
       next: (res) => {
@@ -50,6 +51,7 @@ export class CartComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.cart = res.data;
+
         },
       });
   }

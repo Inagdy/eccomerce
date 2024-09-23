@@ -31,9 +31,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   private _cartService = inject(CartService);
   private _toastr = inject(ToastrService);
 
+  
+
   getAllInCart(data: string) {
     return this._cartService.addProductToCart(data).subscribe({
       next: (res) => {
+          
         this._toastr.success(res.message, 'FreshCart');
       },
     });
