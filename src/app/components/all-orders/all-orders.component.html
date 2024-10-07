@@ -1,3 +1,30 @@
-<p>Here we will display all user orders cst done site will soon updated api done</p>
-<section>
+
+<section class="conatiner">
+
+        @for (item of cartdetails; track $index) {
+            <div class="card text-center m-2">
+                <div class="card-header gap-2">
+                 <span>Address :</span> {{item.shippingAddress.details}} |
+                 <span>Phone :</span>   {{item.shippingAddress.phone}}|
+                 <span>City :</span>   {{item.shippingAddress.city}}
+
+                </div>
+                <div class="card-body  d-flex flex-row flex-wrap">
+                   @for (item of item.cartItems; track $index) {
+                    <ul class="d-flex flex-row mb-3 list-unstyled">
+                        <li><img class="w-40 md-row-3" [src]="item.product.imageCover" alt="">
+                           <div class="text-sm">
+                            <span>{{item.product.brand.name}}</span>
+                           </div>
+                        </li>
+                    </ul>
+                   }
+                </div>
+                <div class="card-footer text-body-secondary">
+                  {{ item.totalOrderPrice | currency:' EGP' }}
+                </div>
+              </div>
+        }
+
+
 </section>
