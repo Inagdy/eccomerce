@@ -36,11 +36,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   
 
   getAllInCart(data: string) {
-    this._NgxSpinnerService.show()
+
 
     return this._cartService.addProductToCart(data).subscribe({
       next: (res) => {
-        this._NgxSpinnerService.hide()
+
 
         this._toastr.success(res.message, 'FreshCart');
       },
@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit(): void {
-    this._NgxSpinnerService.show()
+
     this.GetAllCategoriesService = this._GetAllCategoriesService
       .getCategories()
       .subscribe({

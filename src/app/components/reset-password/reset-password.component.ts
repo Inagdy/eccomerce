@@ -19,7 +19,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class ResetPasswordComponent {
   private readonly _AuthService = inject(AuthService);
   private readonly _Route = inject(Router);
-  private _NgxSpinnerService =inject(NgxSpinnerService)
 
   step: number = 1;
 
@@ -43,13 +42,11 @@ export class ResetPasswordComponent {
   });
 
   verifyEmailSubmit(): void {
-    this._NgxSpinnerService.show()
 
     this._AuthService.verifyEmail(this.verifyEmail.value).subscribe({
       next: (res) => {
         if (res.statusMsg == 'success') {
           this.step += 1;
-          this._NgxSpinnerService.hide()
 
         }
       },
@@ -59,7 +56,6 @@ export class ResetPasswordComponent {
     });
   }
   verifyCode(): void {
-    this._NgxSpinnerService.show()
 
     this._AuthService.verifyCode(this.verfyCode.value).subscribe({
       next: (res) => {
@@ -67,7 +63,6 @@ export class ResetPasswordComponent {
           this.step += 1;
           let emailValue = this.verifyEmail.get('email')?.value;
           this.resetPassord.get('email')?.patchValue(emailValue)
-          this._NgxSpinnerService.hide()
 
         }
       },
@@ -77,13 +72,11 @@ export class ResetPasswordComponent {
     });
   }
   resetPassword(): void {
-    this._NgxSpinnerService.show()
 
     this._AuthService.setResetPassword(this.resetPassord.value).subscribe({
       next: (res) => {
         localStorage.setItem('userToken', res.token);
         this._AuthService.saveUserData();
-        this._NgxSpinnerService.hide()
         this._Route.navigate(['/home']);
 
       },

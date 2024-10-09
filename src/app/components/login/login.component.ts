@@ -16,7 +16,6 @@ import { Router, RouterLink } from '@angular/router';
 export class LoginComponent {
   private readonly _AuthService = inject(AuthService);
   private readonly _router = inject(Router);
-  private _NgxSpinnerService =inject(NgxSpinnerService)
 
   messagerError: string = '';
   loader: boolean = false;
@@ -33,7 +32,6 @@ export class LoginComponent {
 
   logIn() {
     if (this.loginIn.valid) {
-      this._NgxSpinnerService.show()
       this.loader = true;
       this._AuthService.loginFrom(this.loginIn.value).subscribe({
         next: (res) => {
@@ -46,7 +44,6 @@ export class LoginComponent {
              
             setTimeout(()=>{
               localStorage.setItem('userToken', res.token)
-              this._NgxSpinnerService.hide()
               this._router.navigate(['/home'])
 
 
@@ -58,7 +55,6 @@ export class LoginComponent {
         },
         error: (err: HttpErrorResponse) => {
           //show error message for client
-          this._NgxSpinnerService.hide()
           console.log(err);
           this.loader = false;
           this.messagerError = err.error.message;

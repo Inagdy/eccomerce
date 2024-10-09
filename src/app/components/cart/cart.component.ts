@@ -14,17 +14,14 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class CartComponent implements OnInit {
   private readonly _CartService = inject(CartService);
-  private _NgxSpinnerService =inject(NgxSpinnerService)
 
   cart: Cart = {} as Cart;
 
 
   ngOnInit(): void {
-    this._NgxSpinnerService.show()
     this._CartService.getAllItemsOnTheCart().subscribe({
       next: (res) => {
         this.cart = res.data;
-        this._NgxSpinnerService.hide()
       },
       error: (err) => {
         console.log(err);
@@ -33,34 +30,28 @@ export class CartComponent implements OnInit {
   }
 
   deletItem(data: string): void {
-    this._NgxSpinnerService.show()
     this._CartService.deleteSpecificItem(data).subscribe({
       next: (res) => {
-        this._NgxSpinnerService.hide()
         this.cart = res.data;
       },
     });
   }
 
   deleteCart(): void {
-    this._NgxSpinnerService.show()
     this._CartService.clearUsercart().subscribe({
       next: (res) => {
         if (res.message == 'success') {
           this.cart = {} as Cart;
-          this._NgxSpinnerService.hide()
         }
       },
     });
   }
   addItemtocart(productId: string, numberOfitems: number) {
-    this._NgxSpinnerService.show()
     this._CartService
       .updateCartProductQuantity(productId, numberOfitems)
       .subscribe({
         next: (res) => {
           this.cart = res.data;
-          this._NgxSpinnerService.hide()
 
 
         },
