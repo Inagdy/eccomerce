@@ -11,6 +11,7 @@ import { SearchPipePipe } from '../../core/pipes/search-pipe.pipe';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../core/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -30,13 +31,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   private readonly _GetAllCategoriesService = inject(GetAllCategoriesService);
   private _cartService = inject(CartService);
   private _toastr = inject(ToastrService);
+  private _NgxSpinnerService=inject(NgxSpinnerService)
 
   
 
   getAllInCart(data: string) {
+    this._NgxSpinnerService.show()
+
     return this._cartService.addProductToCart(data).subscribe({
       next: (res) => {
-          
+        this._NgxSpinnerService.hide()
+
         this._toastr.success(res.message, 'FreshCart');
       },
     });
@@ -95,11 +100,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit(): void {
+    this._NgxSpinnerService.show()
     this.GetAllCategoriesService = this._GetAllCategoriesService
       .getCategories()
       .subscribe({
         next: (res) => {
           this.categoriesList = res.data;
+          this._NgxSpinnerService.hide();
         },
       });
 

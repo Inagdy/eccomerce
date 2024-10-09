@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, inject } from '@angular/core';
 import {FormControl,FormGroup,ReactiveFormsModule,Validators,} from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
@@ -15,6 +16,7 @@ import { Router, RouterLink } from '@angular/router';
 export class LoginComponent {
   private readonly _AuthService = inject(AuthService);
   private readonly _router = inject(Router);
+  private _NgxSpinnerService =inject(NgxSpinnerService)
 
   messagerError: string = '';
   loader: boolean = false;
@@ -31,6 +33,7 @@ export class LoginComponent {
 
   logIn() {
     if (this.loginIn.valid) {
+      this._NgxSpinnerService.show()
       this.loader = true;
       this._AuthService.loginFrom(this.loginIn.value).subscribe({
         next: (res) => {
@@ -44,12 +47,13 @@ export class LoginComponent {
             setTimeout(()=>{
               localStorage.setItem('userToken', res.token)
               this._router.navigate(['/home'])
+              this._NgxSpinnerService.hide()
+
 
             },1000)
 
 
           }
-          console.log(res);
           this.loader = false;
         },
         error: (err: HttpErrorResponse) => {

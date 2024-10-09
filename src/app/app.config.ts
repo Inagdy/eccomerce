@@ -15,6 +15,7 @@ import {
 import { headerInterceptor } from './core/interceptor/header.interceptor';
 import { errorsInterceptor } from './core/interceptor/errors.interceptor';
 import { provideToastr } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,5 +30,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     // required animations providers
     provideToastr(), // Toastr providers
+    importProvidersFrom(NgxSpinnerModule )
   ],
 };
