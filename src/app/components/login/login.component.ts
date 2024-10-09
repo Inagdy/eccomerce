@@ -46,8 +46,8 @@ export class LoginComponent {
              
             setTimeout(()=>{
               localStorage.setItem('userToken', res.token)
-              this._router.navigate(['/home'])
               this._NgxSpinnerService.hide()
+              this._router.navigate(['/home'])
 
 
             },1000)
@@ -58,6 +58,7 @@ export class LoginComponent {
         },
         error: (err: HttpErrorResponse) => {
           //show error message for client
+          this._NgxSpinnerService.hide()
           console.log(err);
           this.loader = false;
           this.messagerError = err.error.message;
